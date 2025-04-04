@@ -12,13 +12,9 @@ public class Main {
             map.put(tmp, map.getOrDefault(tmp, 0) + 1);
             cnt++;
         }
-        ArrayList<String> list = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            list.add(entry.getKey());
-        }
         StringBuilder sb = new StringBuilder();
-        for (String s : list) {
-            sb.append(s).append(" ").append(String.format("%.4f", (double) (map.get(s) * 100) / cnt)).append(" ");
+        for (String s : map.keySet()) {
+            sb.append(s).append(" ").append(String.format("%.4f", (double) (map.get(s) * 100) / cnt)).append("\n");
         }
         System.out.println(sb);
     }
