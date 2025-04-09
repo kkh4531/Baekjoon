@@ -9,24 +9,20 @@ public class Main {
 
         int n = Integer.parseInt(bufferedReader.readLine());
 
-        int arr[] = new int[n];
         StringTokenizer st = new StringTokenizer(bufferedReader.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        int sum[] = new int[n + 1];
+        sum[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            sum[i] = sum[i - 1] + Integer.parseInt(st.nextToken()); // 핵심(누적 합을 미리 구해놈)
         }
         int m = Integer.parseInt(bufferedReader.readLine());
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m; i++) {
-            int sum = 0;
             st = new StringTokenizer(bufferedReader.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-            for (int j = start - 1; j < end; j++) {
-                sum += arr[j];
-            }
-            sb.append(sum).append('\n');
+            sb.append(sum[end] - sum[start - 1]).append('\n');
         }
-        sb.deleteCharAt(sb.length() - 1);
         System.out.println(sb);
     }
 }
