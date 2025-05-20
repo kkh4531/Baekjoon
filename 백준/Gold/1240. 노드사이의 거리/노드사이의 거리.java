@@ -7,19 +7,18 @@ public class Main {
     static int m;
     static boolean visit[];
     static ArrayList<ArrayList<int[]>> graph;
-    static int res[];
-
-    public static void bfs(int startVertex) {
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(startVertex);
-        visit[startVertex] = true;
-        while (!queue.isEmpty()) {
-            int cv = queue.poll();
-            for (int[] nv : graph.get(cv)) {
-                if (!visit[nv[0]]) {
+    static boolean flag;
+    static int sum;
+    public static void dfs(int startVertex, int endVertex, int distance) {
+        if (startVertex == endVertex) {
+            sum = distance;
+            flag = true;
+        } else {
+            ArrayList<int[]> tmp = graph.get(startVertex);
+            for (int nv[] : tmp) {
+                if (!visit[nv[0]] && !flag) {
                     visit[nv[0]] = true;
-                    res[nv[0]] = res[cv] + nv[1];
-                    queue.offer(nv[0]);
+                    dfs(nv[0], endVertex, distance + nv[1]);
                 }
             }
         }
@@ -33,7 +32,6 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
         visit = new boolean[n + 1];
         graph = new ArrayList<>();
-        res = new int[n + 1];
         for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
         }
@@ -50,10 +48,12 @@ public class Main {
             st = new StringTokenizer(bufferedReader.readLine());
             int startVertex = Integer.parseInt(st.nextToken());
             int endVertex = Integer.parseInt(st.nextToken());
-            bfs(startVertex);
-            sb.append(res[endVertex]).append('\n');
+            visit[startVertex] = true;
+            flag = false;
+            dfs(startVertex, endVertex, 0);
+            sb.append(sum).append('\n');
             visit = new boolean[n + 1];
-            res = new int[n + 1];
+            sum = 0;
         }
         System.out.println(sb);
     }
