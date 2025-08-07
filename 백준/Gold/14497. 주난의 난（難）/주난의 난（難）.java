@@ -18,11 +18,13 @@ public class Main {
         }
         dis[startY][startX] = 0;
         Deque<int[]> dq = new ArrayDeque<>();
-        dq.addFirst(new int[]{startY, startX});
+        dq.addFirst(new int[]{startY, startX, 0});
         while (!dq.isEmpty()) {
             int tmp[] = dq.removeFirst();
             int cy = tmp[0];
             int cx = tmp[1];
+            int nowCost = tmp[2];
+            if (nowCost > dis[cy][cx]) continue;
             for (int i = 0; i < 4; i++) {
                 int ny = cy + dy[i];
                 int nx = cx + dx[i];
@@ -34,12 +36,12 @@ public class Main {
                     if (board[ny][nx] == '1') {
                         if (dis[ny][nx] > dis[cy][cx] + 1) {
                             dis[ny][nx] = dis[cy][cx] + 1;
-                            dq.addLast(new int[]{ny, nx});
+                            dq.addLast(new int[]{ny, nx, nowCost + 1});
                         }
                     } else {
                         if (dis[ny][nx] > dis[cy][cx]) {
                             dis[ny][nx] = dis[cy][cx];
-                            dq.addFirst(new int[]{ny, nx});
+                            dq.addFirst(new int[]{ny, nx, nowCost});
                         }
                     }
                 }
