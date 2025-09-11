@@ -14,8 +14,10 @@ public class Main {
         int b = 0;
         int A = 0;
         int B = 0;
+        boolean flag = false;
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
+            if (i == input.length() - 1 && c != '.') flag = true;
             if (c == '.' && cnt != 0) {
                 a = cnt % 4;
                 b = a % 2;
@@ -33,25 +35,24 @@ public class Main {
                 }
                 cnt = 0;
                 sb.append(".");
-            } else if (c == '.' && cnt == 0) {
-                sb.append(".");
-            } else {
-                cnt++;
+            } else if (c == '.' && cnt == 0) sb.append(".");
+            else cnt++;
+        }
+        if (flag) {
+            a = cnt % 4;
+            b = a % 2;
+            if (b != 0) {
+                System.out.print(-1);
+                return;
             }
-        }
-        a = cnt % 4;
-        b = a % 2;
-        if (b != 0) {
-            System.out.print(-1);
-            return;
-        }
-        A = cnt / 4;
-        B = a / 2;
-        for (int j = 0; j < A; j++) {
-            sb.append("AAAA");
-        }
-        for (int j = 0; j < B; j++) {
-            sb.append("BB");
+            A = cnt / 4;
+            B = a / 2;
+            for (int j = 0; j < A; j++) {
+                sb.append("AAAA");
+            }
+            for (int j = 0; j < B; j++) {
+                sb.append("BB");
+            }
         }
         System.out.println(sb);
     }
