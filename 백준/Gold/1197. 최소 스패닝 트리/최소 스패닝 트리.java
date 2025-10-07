@@ -43,13 +43,16 @@ public class Main {
 
         Collections.sort(input);
         int sum = 0;
+        int cnt = 0;
         for (Edge edge : input) {
             int fv1 = find(edge.v1);
             int fv2 = find(edge.v2);
             if (fv1 != fv2) { // 현재 같은 트리가 아님.
                 sum += edge.cost;
                 Union(edge.v1, edge.v2); // 트리를 이음
+                cnt++;
             }
+            if (cnt == v - 1) break;
         }
         System.out.print(sum);
     }
