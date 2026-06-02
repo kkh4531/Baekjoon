@@ -13,5 +13,5 @@ jobs:
        uses: peter-evans/repository-dispatch@v1
        with:
          token: ${{ secrets.GH_PAT }}
-         repository: {kkh4531}/{PROGRAMMERS-BADGE}
+         repository: kkh4531/programmers-badge-v1
          event-type: trigger-workflow
